@@ -6,6 +6,7 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
 * [Node.js](http://nodejs.org/download)
 * npm: `$ npm install npm`
 * Grunt: CLI `$ npm install -g grunt-cli`
+* If you get an installation error, you may need to set the owership of the /usr/local folder to the current user. If so: run `sudo chown -R $USER /usr/local`
 * [Livereload Chrome Extension](http://goo.gl/bkMepd)
 
 ##Grunt Dependencies:

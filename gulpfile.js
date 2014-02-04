@@ -12,6 +12,7 @@ var concat = require('gulp-concat'),
     map = require('map-stream'),
     livereload = require('gulp-livereload'),
     include = require('gulp-include'),
+    wait = require('gulp-wait'),
     lr = require('tiny-lr'),
     server = lr();
 
@@ -27,19 +28,8 @@ gulp.task('build', function(){
       .pipe(jshint.reporter(stylish))
       .pipe(concat('all.min.js'))
       .pipe(gulp.dest(scriptDist))
+      .pipe(wait(100))
       .pipe(livereload(server));
-
-
-  // { sass }
-  var sassFiles = './assets/sass/style.scss';
-  var sassDist = './css';
-
-  gulp.src(sassFiles)
-      .pipe(concat('style.min.scss'))
-      .pipe(sass({outputStyle: 'nested'}))
-      .pipe(gulp.dest('./css'))
-      .pipe(livereload(server));
-
 
   // { image optimizer }
   var imageFiles = './assets/img/**/*';
@@ -47,6 +37,7 @@ gulp.task('build', function(){
   gulp.src(imageFiles)
         .pipe(imagemin({ cache: true }))
         .pipe(gulp.dest(imageDist))
+        .pipe(wait(100))
         .pipe(livereload(server));
 
   // { html }
@@ -56,7 +47,19 @@ gulp.task('build', function(){
   gulp.src(includes)
     .pipe(include())
     .pipe(gulp.dest(includesDist))
+    .pipe(wait(100))
     .pipe(livereload(server));
+
+  // { sass }
+  var sassFiles = './assets/sass/style.scss';
+  var sassDist = './css';
+
+  gulp.src(sassFiles)
+      .pipe(concat('style.min.scss'))
+      .pipe(sass({outputStyle: 'nested'}))
+      .pipe(gulp.dest('./css'))
+      .pipe(wait(100))
+      .pipe(livereload(server));
 });
 
 gulp.task('lr-server', function() {  

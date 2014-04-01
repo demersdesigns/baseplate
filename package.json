@@ -16,6 +16,8 @@
     "gulp-livereload": "~0.2.0",
     "gulp-include": "~0.2.1",
     "jshint-stylish": "~0.1.5",
-    "gulp-wait": "0.0.2"
+    "gulp-wait": "0.0.2",
+    "gulp-autoprefixer": "0.0.6",
+    "gulp-minify-css": "^0.3.0"
   }
 }

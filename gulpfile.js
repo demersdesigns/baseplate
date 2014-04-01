@@ -7,7 +7,9 @@ var concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
+    prefix = require('gulp-autoprefixer'),
     minifyHtml = require('gulp-minify-html'),
+    minifyCSS = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     map = require('map-stream'),
     livereload = require('gulp-livereload'),
@@ -57,6 +59,8 @@ gulp.task('build', function(){
   gulp.src(sassFiles)
       .pipe(concat('style.min.scss'))
       .pipe(sass({outputStyle: 'nested'}))
+      .pipe(prefix("last 2 versions", "ie 8"))
+      //.pipe(minifyCSS())
       .pipe(gulp.dest('./css'))
       .pipe(wait(100))
       .pipe(livereload(server));

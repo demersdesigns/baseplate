@@ -11,6 +11,7 @@ var concat = require('gulp-concat'),
     minifyHtml = require('gulp-minify-html'),
     minifyCSS = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
+    cache = require('gulp-cache'),
     map = require('map-stream'),
     livereload = require('gulp-livereload'),
     include = require('gulp-include'),
@@ -22,13 +23,14 @@ var concat = require('gulp-concat'),
 gulp.task('build', function(){
  
   // { concat, minify & jshint }
-  var scriptFiles = './assets/js/**/*.js';
+  var scriptFiles = './assets/js/**/*a.js';
   var scriptDist = './js';
   
   gulp.src(scriptFiles)
       .pipe(jshint())
       .pipe(jshint.reporter(stylish))
       .pipe(concat('all.min.js'))
+      .pipe(uglify({outSourceMap: true}))
       .pipe(gulp.dest(scriptDist))
       .pipe(wait(100))
       .pipe(livereload(server));
@@ -37,7 +39,7 @@ gulp.task('build', function(){
   var imageFiles = './assets/img/**/*';
   var imageDist = './img';
   gulp.src(imageFiles)
-        .pipe(imagemin({ cache: true }))
+        .pipe(cache(imagemin()))
         .pipe(gulp.dest(imageDist))
         .pipe(wait(100))
         .pipe(livereload(server));
@@ -57,10 +59,13 @@ gulp.task('build', function(){
   var sassDist = './css';
 
   gulp.src(sassFiles)
-      .pipe(concat('style.min.scss'))
-      .pipe(sass({outputStyle: 'nested'}))
+      .pipe(concat('style.scss'))
+      .pipe(sass({outputStyle: 'nested', errLogToConsole: true}))
       .pipe(prefix("last 2 versions", "ie 8"))
       //.pipe(minifyCSS())
+      .pipe(gulp.dest('./css'))
+      .pipe(concat('style.min.css'))
+      .pipe(minifyCSS())
       .pipe(gulp.dest('./css'))
       .pipe(wait(100))
       .pipe(livereload(server));

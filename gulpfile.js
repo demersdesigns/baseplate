@@ -32,6 +32,7 @@ gulp.task('build', function(){
       .pipe(concat('all.min.js'))
       .pipe(uglify({outSourceMap: true}))
       .pipe(gulp.dest(scriptDist))
+      .pipe(notify({onLast: true, message: "JS compiled!"}))
       .pipe(wait(100))
       .pipe(livereload(server));
 
@@ -41,6 +42,7 @@ gulp.task('build', function(){
   gulp.src(imageFiles)
         .pipe(cache(imagemin()))
         .pipe(gulp.dest(imageDist))
+        .pipe(notify({onLast: true, message: "Images crunched!"}))
         .pipe(wait(100))
         .pipe(livereload(server));
 
@@ -51,6 +53,7 @@ gulp.task('build', function(){
   gulp.src(includes)
     .pipe(include())
     .pipe(gulp.dest(includesDist))
+    .pipe(notify({onLast: true, message: "HTML includes compiled!"}))
     .pipe(wait(100))
     .pipe(livereload(server));
 
@@ -67,6 +70,7 @@ gulp.task('build', function(){
       .pipe(concat('style.min.css'))
       .pipe(minifyCSS())
       .pipe(gulp.dest('./css'))
+      .pipe(notify({onLast: true, message: "Sass compiled!"}))
       .pipe(wait(100))
       .pipe(livereload(server));
 });
@@ -80,14 +84,14 @@ gulp.task('lr-server', function() {
 
 // The default task (called when you run `gulp`)
 gulp.task('default', function() {
-  gulp.run('build', 'lr-server');
+  gulp.start('build', 'lr-server');
 
   // Watch files and run tasks if they change
   gulp.watch('./assets/**/*', function() {
     var date = new Date(), hour = date.getHours(), minutes = date.getMinutes(), seconds = date.getSeconds(),
         buildTime = hour + ':' + minutes + ':' + seconds;
 
-    gulp.run('build', function() {
+    gulp.start('build', function() {
       gutil.log(gutil.colors.blue('------------- Built! -------------'), gutil.colors.green('( Last time -', buildTime, ')'));
     });
 

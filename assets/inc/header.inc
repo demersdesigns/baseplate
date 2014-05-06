@@ -6,14 +6,14 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Gulp! Web App Workflow</title>
+  <title>This is Baseplate</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:image" content="http://rmdias.com/gulpworkflow/img/gulp-logo.png"/>
-  <meta property="og:title" content="Gulp Web App Workflow - Boilerplate from web app using Gulp.JS"/>
-  <meta property="og:url" content="http://rmdias.com/gulpworkflow"/>
-  <meta property="og:site_name" content="Gulp Web App Workflow"/>
+  <meta property="og:image" content=""/>
+  <meta property="og:title" content=""/>
+  <meta property="og:url" content=""/>
+  <meta property="og:site_name" content=""/>
 
 
   <link rel="shortcut icon" href="./favicon.ico"/>

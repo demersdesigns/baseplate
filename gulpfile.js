@@ -17,6 +17,7 @@ var gulp = require('gulp'),
 //Vars for file locations and output destinations
 var cssSrc = 'assets/sass/style.scss',
 		cssDist = 'dist/css',
+		incSrc = 'assets/inc/**/*.inc',
 		htmlSrc = 'assets/html/**/*.html',
 		htmlDist = 'dist',
 		imageSrc = 'assets/img/**/*',
@@ -73,6 +74,7 @@ gulp.task('default', function(){
 //Watch for changes and reload the page
 gulp.task('watch', function(){
 	gulp.watch(cssSrc, ['styles']);
+	gulp.watch(incSrc, ['html']);
 	gulp.watch(htmlSrc, ['html']);
 	gulp.watch(imageSrc, ['images']);
 	gulp.watch(jsSrc, ['scripts']);

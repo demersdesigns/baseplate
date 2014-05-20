@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 		notify = require('gulp-notify');
 
 //Vars for file locations and output destinations
-var cssSrc = 'assets/sass/style.scss',
+var cssSrc = 'assets/sass/**/*.scss',
 		cssDist = 'dist/css',
 		incSrc = 'assets/inc/**/*.inc',
 		htmlSrc = 'assets/html/**/*.html',

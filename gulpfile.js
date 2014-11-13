@@ -10,9 +10,10 @@ var gulp = require('gulp'),
 		include = require('gulp-include'),
 		rename = require('gulp-rename'),
 		cache = require('gulp-cache'),
-		livereload = require('gulp-livereload'),
 		wait = require('gulp-wait'),
-		notify = require('gulp-notify');
+		notify = require('gulp-notify'),
+		browserSync = require('browser-sync'),
+		reload      = browserSync.reload;
 
 //Vars for file locations and output destinations
 var cssSrc = 'assets/sass/**/*.scss',
@@ -25,6 +26,15 @@ var cssSrc = 'assets/sass/**/*.scss',
 		jsSrc = 'assets/js/**/*',
 		jsDist = 'dist/js';
 
+// browser-sync task for starting the server.
+gulp.task('browser-sync', function() {
+    browserSync({
+        server: {
+            baseDir: "dist/"
+        }
+    });
+});
+
 //Compile sass, autoprefix, output non-minified version, output minified version,
 //notify the OS
 gulp.task('styles', function(){
@@ -35,6 +45,7 @@ gulp.task('styles', function(){
 		.pipe(rename({suffix: '.min'}))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest(cssDist))
+		.pipe(reload({stream:true}))
 		.pipe(notify({onLast: true, message: 'CSS compiled and minified!'}))
 });
 
@@ -43,6 +54,7 @@ gulp.task('html', function(){
 	return gulp.src(htmlSrc)
 		.pipe(include())
     .pipe(gulp.dest(htmlDist))
+    .pipe(reload({stream:true}))
     .pipe(notify({onLast: true, message: "HTML includes compiled!"}))
 });
 
@@ -51,9 +63,11 @@ gulp.task('images', function(){
 	return gulp.src(imageSrc)
 		.pipe(cache(imagemin()))
     .pipe(gulp.dest(imageDist))
+    .pipe(reload({stream:true}))
     .pipe(notify({onLast: true, message: "Images crunched!"}))
 });
 
+//JS Hint scripts, concatenate, minify, etc
 gulp.task('scripts', function(){
 	return gulp.src(jsSrc)
 		.pipe(jshint())
@@ -63,25 +77,15 @@ gulp.task('scripts', function(){
 		.pipe(rename({suffix: '.min'}))
 		.pipe(uglify())
 		.pipe(gulp.dest(jsDist))
+		.pipe(reload({stream:true}))
 		.pipe(notify({onLast: true, message: "JS linted, concatenated, and minfied!"}))
 });
 
 //Run the tasks listed above
-gulp.task('default', function(){
-	gulp.start('styles', 'html', 'images', 'scripts');
-});
-
-//Watch for changes and reload the page
-gulp.task('watch', function(){
+gulp.task('default', ['styles', 'html', 'scripts', 'images', 'browser-sync'], function(){
 	gulp.watch(cssSrc, ['styles']);
 	gulp.watch(incSrc, ['html']);
 	gulp.watch(htmlSrc, ['html']);
 	gulp.watch(imageSrc, ['images']);
 	gulp.watch(jsSrc, ['scripts']);
-
-	var server = livereload();
-
-	gulp.watch(['dist/**']).on('change', function(file){
-		server.changed(file.path);
-	});
 });

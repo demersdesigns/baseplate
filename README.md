@@ -5,7 +5,6 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
 ---
 * [Homebrew](http://brew.sh/)
 * [Node.js](http://nodejs.org) & [NPM](https://www.npmjs.org/)
-* [Livereload Chrome Extension](http://goo.gl/bkMepd)
 
 ##Project Capabilities:
 ---
@@ -22,9 +21,7 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
 a. Open up the terminal and type `ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"`
 b. Use homebrew to install Node, which includes NPM `brew install node`
 2. Make sure that Node.js, and NPM are installed. To verify this, you can type `which node` and `which npm` into the command line. If you get an installation error, you may need to set the owership of the /usr/local folder to the current user. If so: run `sudo chown -R $USER /usr/local`
-3. Install the Livereload Chrome extension from the link above.
-4. From the command line, CD into the directory where you pulled this repo and run `$ npm install`, which will download all of the Gulp dependencies listed above into a node-modules folder. This may take a minute or two to complete.
-5. From the command line, type in `gulp watch` to fire up the Gulp instance. If you get an error, you may need to install Gulp globally. To do this type `npm install gulp -g` into the command line. When this completes, try tying in `gulp watch` into the command line once again.
-6. In Chrome, open up the HTML file you want to work with. You don't need to be running MAMP unless there are PHP, database, or other back-end dependencies.
-7. In Chrome, click the Livereload extension button in the upper right hand side of the browser to activate it. The center of the icon should fill in with black.
-8. You should do all of your edits to the HTML, SCSS, JS, and HTML within the **assets** folder, which will compile out production-ready files to the **dist** directory. You should then see the updates you made reflected in the browser without reloading.
+3. From the command line, CD into the directory where you pulled this repo and run `$ npm install`, which will download all of the Gulp dependencies listed above into a node-modules folder. This may take a minute or two to complete.
+4. From the command line, type in `gulp` to fire up the Gulp instance. If you get an error, you may need to install Gulp globally. To do this type `npm install gulp -g` into the command line. When this completes, try tying in `gulp watch` into the command line once again.
+5. This process should open up a new browser window with your site in it. In the console, you will see both a local and an external URL that your site is available for viewing from.
+7. You should do all of your edits to the HTML, SCSS, JS, and HTML within the **assets** folder, which will compile out production-ready files to the **dist** directory. You should then see the updates you made reflected in any of the browsers you have opened your site in without the need to reload.

@@ -17,8 +17,8 @@
 
 
   <link rel="shortcut icon" href="./favicon.ico"/>
-  <link rel="stylesheet" href="./css/style.min.css">
-  <script src="./js/vendor/modernizr-2.7.1.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- <script src="./js/vendor/modernizr-2.7.1.min.js"></script> -->
 </head>
 <body>
     <!--[if lt IE 7]>

@@ -2,6 +2,7 @@
   "name": "baseplate",
   "version": "0.1.0",
   "author": "@demersdesigns",
+  "private": true,
   "dependencies": {
     "browser-sync": "^2.2",
     "del": "^1.1.1",

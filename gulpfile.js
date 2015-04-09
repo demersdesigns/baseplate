@@ -47,6 +47,13 @@ gulp.task('sass', function() {
 });
 
 //TODO: Install and set up useMin
+gulp.task('useMin', function() {
+  return gulp.src('*.html')
+    .pipe(usemin({
+      js: [uglify()]
+    }))
+    .pipe(gulp.dest('dist/'));
+});
 
 //Process JavaScript
 gulp.task('js', function() {

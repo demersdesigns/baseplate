@@ -33,7 +33,7 @@ gulp.task('htmlIncludes', function() {
     .pipe(include())
     .pipe(gulp.dest(rootPath))
     .pipe(reload({stream:true}))
-    .pipe(notify({onLast: true, message: "HTML includes compiled!"}))
+    .pipe(notify({onLast: true, message: "HTML includes compiled!"}));
 });
 
 //Process CSS
@@ -43,25 +43,16 @@ gulp.task('sass', function() {
     .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest('css'))
     .pipe(reload({stream:true}))
-    .pipe(notify({onLast: true, message: 'SCSS compiled!'}))
+    .pipe(notify({onLast: true, message: 'SCSS compiled!'}));
 });
 
-//TODO: Install and set up useMin
-gulp.task('useMin', function() {
-  return gulp.src('*.html')
-    .pipe(usemin({
-      js: [uglify()]
-    }))
-    .pipe(gulp.dest('dist/'));
-});
-
-//Process JavaScript
+//Lint JavaScript
 gulp.task('js', function() {
   return gulp.src(jsSource)
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(reload({stream:true}))
-    .pipe(notify({onLast: true, message: "JS linted"}))
+    .pipe(notify({onLast: true, message: "JS linted"}));
 });
 
 //Process Images
@@ -69,7 +60,7 @@ gulp.task('img', function() {
   return gulp.src(imgSource)
     .pipe(imagemin())
     .pipe(reload({stream:true}))
-    .pipe(notify({onLast: true, message: "Images crunched!"}))
+    .pipe(notify({onLast: true, message: "Images crunched!"}));
 });
 
 //Fire Up a Dev Server
@@ -91,15 +82,14 @@ gulp.task('dev', ['devBuild', 'server:dev'], function() {
   gulp.watch(sassSource, ['sass']);
   gulp.watch(jsSource, ['js']);
   gulp.watch(imgSource, ['img']);
-})
-
+});
 
 //** Build Task **//
 
 //Clear out the dist folder before doing a build
 gulp.task('clean:dist', function(cb) {
   del([
-    'dist/*'
+    'dist'
   ], cb);
 });
 
@@ -107,29 +97,29 @@ gulp.task('clean:dist', function(cb) {
 gulp.task('htmlMinify', function() {
   return gulp.src('*.html')
     .pipe(minifyHtml())
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('dist/'));
 });
 
 //Minify CSS
 gulp.task('cssMinify', function() {
   return gulp.src('css/**/*.css')
     .pipe(minifyCSS())
-    .pipe(gulp.dest('dist/css'))
+    .pipe(gulp.dest('dist/css'));
 });
 
-//TODO: Decide whether or not to include everything in useMin
-//Concatenate and Minify JS (Not including useMin blocks)
-gulp.task('jsMinify', function() {
-  return gulp.src('js/**/*.js')
-    .pipe(concat('scripts.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/js'))
+//Combine JS wrapped in usemin block
+gulp.task('useMin', function() {
+  return gulp.src('*.html')
+    .pipe(usemin({
+      js: [uglify()]
+    }))
+    .pipe(gulp.dest('dist/'));
 });
 
 //Copy Images to Dist
 gulp.task('copyImages', function() {
  return gulp.src('img/*')
-  .pipe(gulp.dest('dist/img'))
+  .pipe(gulp.dest('dist/img'));
 });
 
 //Fire Up a Prod Server
@@ -142,7 +132,7 @@ gulp.task('server:prod', function() {
 });
 
 //Run the dev tasks, then run the prod tasks
-gulp.task('prodBuild', ['devBuild', 'clean:dist', 'htmlMinify', 'cssMinify', 'jsMinify', 'copyImages']); //more tasks go here
+gulp.task('prodBuild', ['devBuild', 'htmlMinify', 'cssMinify', 'useMin', 'copyImages']);
 
 //Run the Prod Build Task and Then Fire up a Server
-gulp.task('prod', ['prodBuild', 'server:prod']);
+gulp.task('prod', ['clean:dist', 'prodBuild']); //'server:prod'

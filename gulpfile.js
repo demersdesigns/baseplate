@@ -15,7 +15,8 @@ var gulp = require('gulp'),
 		cache = require('gulp-cache'),
 		notify = require('gulp-notify'),
 		browserSync = require('browser-sync'),
-		reload      = browserSync.reload;
+		reload = browserSync.reload,
+    runSequence = require('run-sequence');
 
 //** Path Variables **//
 var rootPath = '.';
@@ -89,7 +90,7 @@ gulp.task('dev', ['devBuild', 'server:dev'], function() {
 //Clear out the dist folder before doing a build
 gulp.task('clean:dist', function(cb) {
   del([
-    'dist'
+    'dist/*'
   ], cb);
 });
 
@@ -134,5 +135,9 @@ gulp.task('server:prod', function() {
 //Run the dev tasks, then run the prod tasks
 gulp.task('prodBuild', ['devBuild', 'htmlMinify', 'cssMinify', 'useMin', 'copyImages']);
 
-//Run the Prod Build Task and Then Fire up a Server
-gulp.task('prod', ['clean:dist', 'prodBuild']); //'server:prod'
+//Make sure the clean task completes before we do the prod build
+// TODO: Set up a flag to run the prod server after build
+gulp.task('prod', function(){
+  runSequence('clean:dist', 'prodBuild');
+
+})

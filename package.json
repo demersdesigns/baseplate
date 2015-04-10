@@ -2,21 +2,29 @@
   "name": "baseplate",
   "version": "0.1.0",
   "author": "@demersdesigns",
-  "devDependencies": {
+  "private": true,
+  "dependencies": {
     "browser-sync": "^2.2",
+    "del": "^1.1.1",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "0.0.7",
     "gulp-cache": "^0.2.4",
     "gulp-concat": "^2.2.0",
-    "gulp-imagemin": "^0.5.0",
+    "gulp-if": "^1.2.5",
+    "gulp-imagemin": "^0.5.1",
     "gulp-include": "^0.2.2",
-    "gulp-jshint": "^1.5.5",
-    "gulp-minify-css": "^0.3.4",
+    "gulp-jshint": "^1.10.0",
+    "gulp-minify-css": "^0.3.13",
+    "gulp-minify-html": "^1.0.2",
     "gulp-notify": "^1.2.5",
+    "gulp-param": "^0.6.3",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^0.7.1",
     "gulp-uglify": "^0.2.1",
+    "gulp-usemin": "^0.3.11",
     "gulp-wait": "0.0.2",
-    "jshint-stylish": "^0.2.0"
+    "jshint-stylish": "^0.2.0",
+    "run-sequence": "^1.0.2",
+    "yargs": "^3.7.0"
   }
 }

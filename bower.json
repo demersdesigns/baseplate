@@ -1,0 +1,19 @@
+{
+  "name": "baseplate",
+  "version": "0.0.1",
+  "homepage": "https://github.com/demersdesigns/baseplate",
+  "authors": [
+    "Paul Demers <paul@demersdesigns.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  }
+}

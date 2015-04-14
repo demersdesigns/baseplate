@@ -1,0 +1,28 @@
+@import "partials/vars";
+@import "partials/normalize";
+@import "partials/html5bp";
+@import "bourbon/bourbon";
+@import "neat/neat";
+@import "partials/base";
+@import "partials/custom_fonts";
+
+@import "partials/content";
+
+@import "partials/helpers";
+@import "partials/print";
+
+body{
+	background: whitesmoke;
+}
+
+.container{
+  width: 100%;
+  max-width: 800px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+.branding{
+  margin: 0 auto;
+  display: block;
+}

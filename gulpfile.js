@@ -16,18 +16,18 @@ var gulp        = require('gulp'),
 		notify      = require('gulp-notify'),
 		browserSync = require('browser-sync'),
 		reload      = browserSync.reload,
-    runSequence = require('run-sequence')
+    runSequence = require('run-sequence'),
     argv        = require('yargs').argv,
     gulpif      = require('gulp-if');
 
 //** Path Variables **//
-var rootPath    = '.';
+var rootPath    = 'assets/';
 var distPath    = 'dist/';
-var incSource   = 'html/**/*.inc';
-var htmlSource  = 'html/**/*.html';
-var sassSource  = 'sass/**/*.scss';
-var jsSource    = 'js/**/*.js';
-var imgSource   = 'img/**/*';
+var incSource   = 'assets/html/**/*.inc';
+var htmlSource  = 'assets/html/**/*.html';
+var sassSource  = 'assets/sass/**/*.scss';
+var jsSource    = 'assets/js/**/*.js';
+var imgSource   = 'assets/img/**/*';
 
 //** Dev Task **//
 
@@ -38,7 +38,7 @@ gulp.task('htmlIncludes', function() {
     .pipe(include())
     .pipe(gulp.dest(rootPath))
     .pipe(reload({stream:true}))
-    .pipe(notify({onLast: true, message: "HTML includes compiled!"}));
+    .pipe(gulpif(argv.notify, notify({onLast: true, message: "HTML includes compiled!"})));
 });
 
 //Process CSS
@@ -47,7 +47,7 @@ gulp.task('sass', function() {
     .pipe(cache('styles'))
     .pipe(sass({ outputStyle: 'expanded', errLogToConsole: true }))
     .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(gulp.dest('css'))
+    .pipe(gulp.dest(rootPath + 'css'))
     .pipe(reload({stream:true}))
     .pipe(gulpif(argv.notify, notify({onLast: true, message: 'SCSS compiled!'})));
 });
@@ -110,24 +110,25 @@ gulp.task('htmlMinify', function() {
 });
 
 //Minify CSS
-gulp.task('cssMinify', function() {
-  return gulp.src('css/**/*.css')
-    .pipe(minifyCSS())
-    .pipe(gulp.dest(distPath + 'css'));
-});
+// gulp.task('cssMinify', function() {
+//   return gulp.src('css/**/*.css')
+//     .pipe(minifyCSS())
+//     .pipe(gulp.dest(distPath + 'css'));
+// });
 
 //Combine JS wrapped in usemin block
 gulp.task('useMin', function() {
-  return gulp.src('*.html')
+  return gulp.src(rootPath + '*.html')
     .pipe(usemin({
-      js: [uglify()]
+      js: [uglify()],
+      css: [minifyCSS(), 'concat']
     }))
     .pipe(gulp.dest(distPath));
 });
 
 //Copy Images to Dist
 gulp.task('copyImages', function() {
- return gulp.src('img/*')
+ return gulp.src(rootPath + 'img/*')
   .pipe(gulp.dest(distPath + 'img'));
 });
 
@@ -141,7 +142,7 @@ gulp.task('server:prod', function() {
 });
 
 //Run the dev tasks, then run the prod tasks
-gulp.task('prodBuild', ['devBuild', 'htmlMinify', 'cssMinify', 'useMin', 'copyImages']);
+gulp.task('prodBuild', ['devBuild', 'htmlMinify', 'useMin', 'copyImages']); //'cssMinify',
 
 //Make sure the clean task completes before we do the prod build
 gulp.task('prod', function(){

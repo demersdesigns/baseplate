@@ -1,8 +1,8 @@
 @import "partials/vars";
-@import "assets/bower_components/normalize-scss/_normalize.scss";
+@import "../../assets/bower_components/normalize-scss/_normalize.scss";
 @import "partials/html5bp";
-@import "assets/bower_components/bourbon/app/assets/stylesheets/_bourbon.scss";
-@import "assets/bower_components/neat/app/assets/stylesheets/_neat.scss";
+@import "../../assets/bower_components/bourbon/app/assets/stylesheets/_bourbon.scss";
+@import "../../assets/bower_components/neat/app/assets/stylesheets/_neat.scss";
 @import "partials/custom_fonts";
 
 body{

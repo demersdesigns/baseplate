@@ -16,6 +16,7 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
     * JS - Javascript is run through JSHint and any errors are returned to the console.
     * SASS - SCSS files are compiled into CSS
     * Includes - HTML includes are compiled and saved in the root application.
+    * LSG - Generates a [living styleguide](http://livingstyleguide.org/) based on the SASS partials and corresponding markdown documentation files
     * Any HTML, INC, SCSS, or JS file updates will trigger a reload of the browser.
     * Errors in JS and CSS will output to the command line.
 * The production tasks include:
@@ -35,6 +36,7 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 4. Once that process completes successfully, check to make sure you have Bower installed by typing `$ which bower` into the command line.
 5. If you don't have Bower installed, type `$ npm install bower` into the command line.
 6. Once that process completes successfully, run `$ bower install` in the command line.
+7. In order to utilize the living styleguide functionality, you will need to install the gem using `gem install livingstyleguide`
 
 ##Usage:
 ---
@@ -43,3 +45,8 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 1. From the command line, type in `gulp dev` to fire up the Gulp instance. If you get an error, you may need to install Gulp globally. To do this type `npm install gulp -g` into the command line. When this completes, try tying in `gulp dev` into the command line once again.
 2. This process should open up a new browser window with your site in it. In the console, you will see both a local and an external URL that your site is available for viewing from.
 3. All file edits you make are automatically reflected in any of the browsers that have your project open.
+
+###Using the living styleguide
+1. For every .scss file that you want to include in your styleguide, create a corresponsing markdown file with the same name. Example: _buttons.scss and _buttons.md.
+2. In your .scss file, write the style rules that you want to use in your project
+3. In the markdown file, you can write documentation about your styles and HTML with the appropriate structure and class names to correspond with the stylesheet. The [readme for the project](https://github.com/livingstyleguide/livingstyleguide#readme) provides the best documentation of how to get started with this.

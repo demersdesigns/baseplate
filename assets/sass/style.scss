@@ -1,15 +1,9 @@
 @import "partials/vars";
-@import "partials/normalize";
+@import "assets/bower_components/normalize-scss/_normalize.scss";
 @import "partials/html5bp";
-@import "bourbon/bourbon";
-@import "neat/neat";
-@import "partials/base";
+@import "assets/bower_components/bourbon/app/assets/stylesheets/_bourbon.scss";
+@import "assets/bower_components/neat/app/assets/stylesheets/_neat.scss";
 @import "partials/custom_fonts";
-
-@import "partials/content";
-
-@import "partials/helpers";
-@import "partials/print";
 
 body{
 	background: whitesmoke;
@@ -26,3 +20,5 @@ body{
   margin: 0 auto;
   display: block;
 }
+
+@import "partials/print";

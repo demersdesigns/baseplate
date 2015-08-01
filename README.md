@@ -27,16 +27,20 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
 
 ##Installation:
 ---
+The baseplate project depends on Node, NPM, and Bower. If you are not sure if these are installed on your machine, check out the dependencies section below. Otherwise, you can skip to the install instructions section.
+
+###Dependencies
 1. If you don't have Homebrew, Node, NPM, and Bower installed please complete the following:
 <br>
 a. Open up the terminal and type `$ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"`
 b. Use homebrew to install Node, which includes NPM `$ brew install node`
 2. Make sure that Node.js, and NPM are installed. To verify this, you can type `$ which node` and `$ which npm` into the command line. If you get an installation error, you may need to set the owership of the /usr/local folder to the current user. If so: run `$ sudo chown -R $USER /usr/local`
-3. From the command line, CD into the directory where you pulled this repo and run `$ npm install`, which will download all of the Gulp dependencies listed above into a node-modules folder. This may take a minute or two to complete.
-4. Once that process completes successfully, check to make sure you have Bower installed by typing `$ which bower` into the command line.
-5. If you don't have Bower installed, type `$ npm install bower` into the command line.
-6. Once that process completes successfully, run `$ bower install` in the command line.
-7. In order to utilize the living styleguide functionality, you will need to install the gem using `gem install livingstyleguide`
+3. Install bower using `npm install bower`
+4. You can check to make sure it was installed properly by typing `which bower` into the terminal.
+
+###Installation Instructions
+1. From the command line, `cd` into the directory where you pulled this repo into and run `npm start`, which will run both `npm install` to get all of the node modules as well as `bower install`, which will pull down the Bower dependencies.
+2. In order to utilize the living styleguide functionality, you will need to install the gem using `gem install livingstyleguide`
 
 ##Usage:
 ---
@@ -50,3 +54,5 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 1. For every .scss file that you want to include in your styleguide, create a corresponsing markdown file with the same name. Example: _buttons.scss and _buttons.md.
 2. In your .scss file, write the style rules that you want to use in your project
 3. In the markdown file, you can write documentation about your styles and HTML with the appropriate structure and class names to correspond with the stylesheet. The [readme for the project](https://github.com/livingstyleguide/livingstyleguide#readme) provides the best documentation of how to get started with this.
+4. Now, every time you make edits to your .scss or corresponding markdown files, the updated styleguide will be created.
+5. You can view the generated styleguide by visiting http://localhost:3000/styleguide/styleguide.html

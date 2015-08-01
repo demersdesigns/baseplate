@@ -148,13 +148,6 @@ gulp.task('htmlMinify', function() {
         .pipe(gulp.dest(distPath));
 });
 
-//Minify CSS
-// gulp.task('cssMinify', function() {
-//   return gulp.src('css/**/*.css')
-//     .pipe(minifyCSS())
-//     .pipe(gulp.dest(distPath + 'css'));
-// });
-
 //Combine JS wrapped in usemin block
 gulp.task('useMin', function() {
     return gulp.src(rootPath + '*.html')

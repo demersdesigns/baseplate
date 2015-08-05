@@ -16,7 +16,6 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
     * JS - Javascript is run through JSHint and any errors are returned to the console.
     * SASS - SCSS files are compiled into CSS
     * Includes - HTML includes are compiled and saved in the root application.
-    * LSG - Generates a [living styleguide](http://livingstyleguide.org/) based on the SASS partials and corresponding markdown documentation files
     * Any HTML, INC, SCSS, or JS file updates will trigger a reload of the browser.
     * Errors in JS and CSS will output to the command line.
 * The production tasks include:
@@ -24,6 +23,7 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
     * CSS - CSS files are minified, concatenated, and saved in the CSS folder in the dist directory.
     * HTML - HTML files are minified and saved to the dist directory.
     * Images - Images are copied from the root img folder into the img folder inside the dist directory.
+* Baseplate also creates a living styleguide using [KSS](http://warpspire.com/kss/)
 
 ##Installation:
 ---
@@ -39,8 +39,8 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 4. You can check to make sure it was installed properly by typing `which bower` into the terminal.
 
 ###Installation Instructions
-1. From the command line, `cd` into the directory where you pulled this repo into and run `npm start`, which will run both `npm install` to get all of the node modules as well as `bower install`, which will pull down the Bower dependencies.
-2. In order to utilize the living styleguide functionality, you will need to install the gem using `gem install livingstyleguide`
+1. From the command line, `cd` into the directory where you pulled this repo into
+2. Run `npm start`, which will run both `npm install` to get all of the node modules as well as `bower install`, which will pull down the Bower dependencies.
 
 ##Usage:
 ---
@@ -51,8 +51,7 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 3. All file edits you make are automatically reflected in any of the browsers that have your project open.
 
 ###Using the living styleguide
-1. For every .scss file that you want to include in your styleguide, create a corresponsing markdown file with the same name. Example: _buttons.scss and _buttons.md.
-2. In your .scss file, write the style rules that you want to use in your project
-3. In the markdown file, you can write documentation about your styles and HTML with the appropriate structure and class names to correspond with the stylesheet. The [readme for the project](https://github.com/livingstyleguide/livingstyleguide#readme) provides the best documentation of how to get started with this.
-4. Now, every time you make edits to your .scss or corresponding markdown files, the updated styleguide will be created.
-5. You can view the generated styleguide by visiting http://localhost:3000/styleguide/styleguide.html
+1. The styleguide.md file in the assets/sass folder can be customized as needed and will serve as the index page for your styleguide.
+2. Refer to the KSS documentation for instructions on how to add documentation to your stylesheets.
+3. When .scss files are saved, the styleguide and associated css styles will update and reload the page.
+4. A styleguide folder will be generated in the assets folder and will be viewable in the browser at `http://localhost:3000/styleguide`

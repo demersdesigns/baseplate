@@ -19,9 +19,7 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
-    //manually fixed since NPM version is out of date
-    //https://github.com/PhilJ/gulp-kss/commit/4af6b82a3192ba66b353fce6f591bd2b6d24abc5
-    kss = require('gulp-kss');
+    kss = require('gulp-kss-styleguide');
 
 //** Path Variables **//
 var rootPath = 'assets/';

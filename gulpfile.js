@@ -19,8 +19,9 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
-    exec = require('gulp-exec'),
-    mkdirp = require('mkdirp');
+    //manually fixed since NPM version is out of date
+    //https://github.com/PhilJ/gulp-kss/commit/4af6b82a3192ba66b353fce6f591bd2b6d24abc5
+    kss = require('gulp-kss');
 
 //** Path Variables **//
 var rootPath = 'assets/';
@@ -51,13 +52,14 @@ gulp.task('htmlIncludes', function() {
 //Process CSS
 gulp.task('sass', function() {
     return gulp.src(sassSource)
-        .pipe(cache('styles'))
         .pipe(sass({
             outputStyle: 'expanded',
             errLogToConsole: true
         }))
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(gulp.dest(rootPath + 'css'))
+        .pipe(gulp.dest(rootPath + 'styleguide/public'))
+
         .pipe(reload({
             stream: true
         }))
@@ -96,18 +98,21 @@ gulp.task('img', function() {
         })));
 });
 
-//Generate Styleguide //Does not trigger livereload
-gulp.task('lsg', function() {
-    //livingstyleguide won't create a folder if it doesn't exist, here we check for
-    //the prescence of the /styleguide folder
-    mkdirp('assets/styleguide', function(err) {
-        if (err) console.error(err);
-    });
-
-    gulp.src('assets/sass/**')
-        .pipe(exec(
-            'livingstyleguide compile assets/sass/styleguide.lsg assets/styleguide/styleguide.html'
-        ));
+//Generate Styleguide
+//Stylesheet is generated in the sass task
+gulp.task('syleguide:generate', function() {
+    return gulp.src(sassSource)
+        .pipe(kss({
+            overview: __dirname + '/assets/sass/styleguide.md'
+        }))
+        .pipe(gulp.dest('assets/styleguide'))
+        .pipe(reload({
+            stream: true
+        }))
+        .pipe(gulpif(argv.notify, notify({
+            onLast: true,
+            message: 'foo!'
+        })));
 });
 
 //Fire Up a Dev Server
@@ -120,14 +125,14 @@ gulp.task('server:dev', function() {
 });
 
 //Task That Runs the Processes Listed Above
-gulp.task('devBuild', ['htmlIncludes', 'sass', 'js', 'img', 'lsg']);
+gulp.task('devBuild', ['htmlIncludes', 'sass', 'syleguide:generate', 'js', 'img']);
 
 //Run the Dev Build Task and Then Fire up a Server
 //Use the --notify flag to show messages on task completion
 gulp.task('dev', ['devBuild', 'server:dev'], function() {
     gulp.watch(htmlSource, ['htmlIncludes']);
     gulp.watch(incSource, ['htmlIncludes']);
-    gulp.watch(sassSource, ['sass', 'lsg']);
+    gulp.watch(sassSource, ['sass', 'syleguide:generate']);
     gulp.watch(jsSource, ['js']);
     gulp.watch(imgSource, ['img']);
 });

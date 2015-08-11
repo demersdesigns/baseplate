@@ -35,6 +35,10 @@ var imgSource = 'assets/img/**/*';
 
 //** Dev Task **//
 
+var flags = {
+  styleguide: false
+};
+
 //Process HTML Includes
 gulp.task('htmlIncludes', function() {
     return gulp.src(htmlSource)
@@ -48,6 +52,19 @@ gulp.task('htmlIncludes', function() {
             onLast: true,
             message: "HTML includes compiled!"
         })));
+});
+
+gulp.task('styleguide', function() {
+  flags.styleguide = true;
+});
+
+gulp.task('styleguide:generate', function() {
+  if(flags.styleguide) {
+    run(kssNode + 'assets/sass assets/styleguide/ --css ../css/style.css').exec();
+    reload({
+      stream: true
+    })
+  };
 });
 
 //Process CSS
@@ -99,29 +116,6 @@ gulp.task('img', function() {
         })));
 });
 
-//Generate Styleguide
-//Stylesheet is generated in the sass task
-// gulp.task('syleguide:generate', function() {
-//     return gulp.src(sassSource)
-//         .pipe(kss({
-//             overview: __dirname + '/assets/sass/styleguide.md'
-//         }))
-//         .pipe(gulp.dest('assets/styleguide'))
-//         .pipe(reload({
-//             stream: true
-//         }))
-//         .pipe(gulpif(argv.notify, notify({
-//             onLast: true,
-//             message: 'foo!'
-//         })));
-// });
-
-
-
-gulp.task('styleguide', function() {
-  run(kssNode + 'assets/sass assets/styleguide/ --css ../css/style.css').exec();
-});
-
 //Fire Up a Dev Server
 gulp.task('server:dev', function() {
     browserSync({
@@ -132,14 +126,14 @@ gulp.task('server:dev', function() {
 });
 
 //Task That Runs the Processes Listed Above
-gulp.task('devBuild', ['htmlIncludes', 'sass', 'styleguide', 'js', 'img']);
+gulp.task('devBuild', ['htmlIncludes', 'sass', 'styleguide:generate', 'js', 'img']);
 
 //Run the Dev Build Task and Then Fire up a Server
 //Use the --notify flag to show messages on task completion
 gulp.task('dev', ['devBuild', 'server:dev'], function() {
     gulp.watch(htmlSource, ['htmlIncludes']);
     gulp.watch(incSource, ['htmlIncludes']);
-    gulp.watch(sassSource, ['sass', 'styleguide']);
+    gulp.watch(sassSource, ['sass', 'styleguide:generate']);
     gulp.watch(jsSource, ['js']);
     gulp.watch(imgSource, ['img']);
 });

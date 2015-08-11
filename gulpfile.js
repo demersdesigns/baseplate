@@ -19,7 +19,10 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     argv = require('yargs').argv,
     gulpif = require('gulp-if'),
-    kss = require('gulp-kss-styleguide');
+    run = require('gulp-run'),
+    kss = require('kss');
+
+var kssNode = 'node ' + __dirname + '/node_modules/kss/bin/kss-node ';
 
 //** Path Variables **//
 var rootPath = 'assets/';
@@ -56,7 +59,7 @@ gulp.task('sass', function() {
         }))
         .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(gulp.dest(rootPath + 'css'))
-        .pipe(gulp.dest(rootPath + 'styleguide/public'))
+        //.pipe(gulp.dest(rootPath + 'styleguide/public'))
 
         .pipe(reload({
             stream: true
@@ -98,19 +101,25 @@ gulp.task('img', function() {
 
 //Generate Styleguide
 //Stylesheet is generated in the sass task
-gulp.task('syleguide:generate', function() {
-    return gulp.src(sassSource)
-        .pipe(kss({
-            overview: __dirname + '/assets/sass/styleguide.md'
-        }))
-        .pipe(gulp.dest('assets/styleguide'))
-        .pipe(reload({
-            stream: true
-        }))
-        .pipe(gulpif(argv.notify, notify({
-            onLast: true,
-            message: 'foo!'
-        })));
+// gulp.task('syleguide:generate', function() {
+//     return gulp.src(sassSource)
+//         .pipe(kss({
+//             overview: __dirname + '/assets/sass/styleguide.md'
+//         }))
+//         .pipe(gulp.dest('assets/styleguide'))
+//         .pipe(reload({
+//             stream: true
+//         }))
+//         .pipe(gulpif(argv.notify, notify({
+//             onLast: true,
+//             message: 'foo!'
+//         })));
+// });
+
+
+
+gulp.task('styleguide', function() {
+  run(kssNode + 'assets/sass assets/styleguide/ --css ../css/style.css').exec();
 });
 
 //Fire Up a Dev Server
@@ -123,14 +132,14 @@ gulp.task('server:dev', function() {
 });
 
 //Task That Runs the Processes Listed Above
-gulp.task('devBuild', ['htmlIncludes', 'sass', 'syleguide:generate', 'js', 'img']);
+gulp.task('devBuild', ['htmlIncludes', 'sass', 'styleguide', 'js', 'img']);
 
 //Run the Dev Build Task and Then Fire up a Server
 //Use the --notify flag to show messages on task completion
 gulp.task('dev', ['devBuild', 'server:dev'], function() {
     gulp.watch(htmlSource, ['htmlIncludes']);
     gulp.watch(incSource, ['htmlIncludes']);
-    gulp.watch(sassSource, ['sass', 'syleguide:generate']);
+    gulp.watch(sassSource, ['sass', 'styleguide']);
     gulp.watch(jsSource, ['js']);
     gulp.watch(imgSource, ['img']);
 });

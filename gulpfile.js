@@ -12,7 +12,6 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     include = require('gulp-include'),
     minifyHtml = require('gulp-minify-html'),
-    cache = require('gulp-cached'),
     notify = require('gulp-notify'),
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
@@ -42,7 +41,6 @@ var flags = {
 //Process HTML Includes
 gulp.task('htmlIncludes', function() {
     return gulp.src(htmlSource)
-        .pipe(cache('html'))
         .pipe(include())
         .pipe(gulp.dest(rootPath))
         .pipe(reload({
@@ -70,7 +68,6 @@ gulp.task('styleguide:generate', function() {
 //Process CSS
 gulp.task('sass', function() {
     return gulp.src(sassSource)
-        .pipe(sass({
             outputStyle: 'expanded',
             errLogToConsole: true
         }))
@@ -90,7 +87,6 @@ gulp.task('sass', function() {
 //Lint JavaScript
 gulp.task('js', function() {
     return gulp.src(jsSource)
-        .pipe(cache('scripts'))
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(reload({
@@ -105,7 +101,6 @@ gulp.task('js', function() {
 //Process Images
 gulp.task('img', function() {
     return gulp.src(imgSource)
-        .pipe(cache('images'))
         .pipe(imagemin())
         .pipe(reload({
             stream: true

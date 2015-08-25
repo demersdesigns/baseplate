@@ -12,7 +12,6 @@ var gulp        = require('gulp'),
 		imagemin    = require('gulp-imagemin'),
 		include     = require('gulp-include'),
     minifyHtml  = require('gulp-minify-html'),
-		cache       = require('gulp-cached'),
 		notify      = require('gulp-notify'),
 		browserSync = require('browser-sync'),
 		reload      = browserSync.reload,
@@ -34,7 +33,6 @@ var imgSource   = 'assets/img/**/*';
 //Process HTML Includes
 gulp.task('htmlIncludes', function() {
   return gulp.src(htmlSource)
-  .pipe(cache('html'))
     .pipe(include())
     .pipe(gulp.dest(rootPath))
     .pipe(reload({stream:true}))
@@ -44,7 +42,6 @@ gulp.task('htmlIncludes', function() {
 //Process CSS
 gulp.task('sass', function() {
   return gulp.src(sassSource)
-    .pipe(cache('styles'))
     .pipe(sass({ outputStyle: 'expanded', errLogToConsole: true }))
     .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest(rootPath + 'css'))
@@ -55,7 +52,6 @@ gulp.task('sass', function() {
 //Lint JavaScript
 gulp.task('js', function() {
   return gulp.src(jsSource)
-    .pipe(cache('scripts'))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(reload({stream:true}))
@@ -65,7 +61,6 @@ gulp.task('js', function() {
 //Process Images
 gulp.task('img', function() {
   return gulp.src(imgSource)
-    .pipe(cache('images'))
     .pipe(imagemin())
     .pipe(reload({stream:true}))
     .pipe(gulpif(argv.notify, notify({onLast: true, message: 'Images crunched!'})));

@@ -39,7 +39,7 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 
 ###Installation Instructions
 1. From the command line, `cd` into the directory where you pulled this repo into
-2. Run `npm start`, which will run both `npm install` to get all of the node modules as well as `bower install`, which will pull down the Bower dependencies.
+2. Run `npm run init`, which will run both `npm install` to get all of the node modules as well as `bower install`, which will pull down the Bower dependencies.
 
 ##Usage:
 ---

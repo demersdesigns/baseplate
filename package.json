@@ -4,7 +4,7 @@
   "author": "@demersdesigns",
   "private": true,
   "dependencies": {
-    "browser-sync": "^2.6.1",
+    "browser-sync": "^2.9.11",
     "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",
@@ -27,6 +27,6 @@
     "yargs": "^3.7.1"
   },
   "scripts": {
-    "start": "npm install; bower install;"
+    "init": "npm install; bower install;"
   }
 }

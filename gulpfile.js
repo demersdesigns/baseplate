@@ -20,7 +20,7 @@ var gulp        = require('gulp'),
     gulpif      = require('gulp-if');
 
 //** Path Variables **//
-var rootPath    = 'assets/';
+var rootPath    = 'dev/';
 var distPath    = 'dist/';
 var incSource   = 'assets/html/**/*.inc';
 var htmlSource  = 'assets/html/**/*.html';
@@ -54,14 +54,22 @@ gulp.task('js', function() {
   return gulp.src(jsSource)
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
+    .pipe(gulp.dest(rootPath + 'js'))
     .pipe(reload({stream:true}))
     .pipe(gulpif(argv.notify, notify({onLast: true, message: 'JS linted!'})));
+});
+
+//Copy jQuery from assets/bower_components to dev
+gulp.task('copyJquery', function() {
+  return gulp.src('assets/bower_components/jquery/dist/jquery.min.js')
+    .pipe(gulp.dest(rootPath + '/js'));
 });
 
 //Process Images
 gulp.task('img', function() {
   return gulp.src(imgSource)
     .pipe(imagemin())
+    .pipe(gulp.dest(rootPath + 'img'))
     .pipe(reload({stream:true}))
     .pipe(gulpif(argv.notify, notify({onLast: true, message: 'Images crunched!'})));
 });
@@ -75,12 +83,12 @@ gulp.task('server:dev', function() {
     });
 });
 
-//Task That Runs the Processes Listed Above
-gulp.task('devBuild', ['htmlIncludes', 'sass', 'js', 'img']);
+//Task That Runs the Processes Listed Above - Use this task for deployment to dev env
+gulp.task('devBuild', ['htmlIncludes', 'sass', 'js', 'copyJquery', 'img']);
 
-//Run the Dev Build Task and Then Fire up a Server
+//Run the devBuild task and then fire up a local server
 //Use the --notify flag to show messages on task completion
-gulp.task('dev', ['devBuild', 'server:dev'], function() {
+gulp.task('devServe', ['devBuild', 'server:dev'], function() {
   gulp.watch(htmlSource, ['htmlIncludes']);
   gulp.watch(incSource, ['htmlIncludes']);
   gulp.watch(sassSource, ['sass']);
@@ -89,7 +97,6 @@ gulp.task('dev', ['devBuild', 'server:dev'], function() {
 });
 
 //** Build Task **//
-
 //Clear out the dist folder before doing a build
 gulp.task('clean:dist', function(cb) {
   del([
@@ -98,18 +105,10 @@ gulp.task('clean:dist', function(cb) {
 });
 
 //Minify HTML
-gulp.task('htmlMinify', function() {
-  return gulp.src('*.html')
-    .pipe(minifyHtml())
+gulp.task('copyHtml', function() {
+  return gulp.src(rootPath + '*.html')
     .pipe(gulp.dest(distPath));
 });
-
-//Minify CSS
-// gulp.task('cssMinify', function() {
-//   return gulp.src('css/**/*.css')
-//     .pipe(minifyCSS())
-//     .pipe(gulp.dest(distPath + 'css'));
-// });
 
 //Combine JS wrapped in usemin block
 gulp.task('useMin', function() {
@@ -136,10 +135,15 @@ gulp.task('server:prod', function() {
     });
 });
 
-//Run the dev tasks, then run the prod tasks
-gulp.task('prodBuild', ['devBuild', 'htmlMinify', 'useMin', 'copyImages']); //'cssMinify',
+//Copy files from dev, combine scripts, combine css
+gulp.task('preProd', ['copyHtml', 'useMin', 'copyImages']);
 
-//Make sure the clean task completes before we do the prod build
+//Make sure the clean task, devBuild, and preProd tasks fire in the correct order
 gulp.task('prod', function(){
-    runSequence('clean:dist', 'prodBuild', 'server:prod');
+    runSequence('clean:dist', 'devBuild', 'preProd');
+});
+
+//Run the prod tasks and then fire up a local server
+gulp.task('prodServe', function(){
+    runSequence('clean:dist', 'preProd', 'server:prod');
 });

@@ -103,7 +103,7 @@ gulp.task('clean:dist', function(cb) {
   ], cb);
 });
 
-//Minify HTML
+//Copy HTML
 gulp.task('copyHtml', function() {
   return gulp.src(rootPath + '*.html')
     .pipe(gulp.dest(distPath));

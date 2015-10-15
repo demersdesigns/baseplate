@@ -1,6 +1,5 @@
 /node_modules
-/dev
-/dist
+/target
 /assets/bower_components
 /dist
 /assets/css

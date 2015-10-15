@@ -13,16 +13,17 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
 * Baseplate utilizes [BrowserSync](http://www.browsersync.io/) to allow for live reloading of files on multiple devices
 * Baseplate includes both development and production tasks.
 * The development tasks include:
-    * JS - Javascript is run through JSHint and any errors are returned to the console.
-    * SASS - SCSS files are compiled into CSS
-    * Includes - HTML includes are compiled and saved in the root application.
-    * Any HTML, INC, SCSS, or JS file updates will trigger a reload of the browser.
+    * JS - Javascript is run through JSHint and any errors are returned to the console. The files are then copied to the development folder. A copy of the minified jQuery file from the bower_components folder is copied to the target/development folder.
+    * SASS - SCSS files are compiled into CSS and copied into the target/development folder
+    * Images - Images are optimized and copied to the target/development folder.
+    * Includes - Includes are compiled to saved as HTML files in the target/development folder.
+    * Any updates to files in the assets folder will trigger a reload of the browser.
     * Errors in JS and CSS will output to the command line.
 * The production tasks include:
-    * JS - JavaScript files included in the usemin block in the index.html file are uglified, concatenated, and saved to the JS folder in the dist directory.
-    * CSS - CSS files are minified, concatenated, and saved in the CSS folder in the dist directory.
-    * HTML - HTML files are minified and saved to the dist directory.
-    * Images - Images are copied from the root img folder into the img folder inside the dist directory.
+    * JS - JavaScript files included in the usemin blocks are concatenated, uglified, and copied to the target/production folder.
+    * CSS - CSS files are minified, concatenated, and copied to the target/production folder.
+    * HTML - HTML files are copied to the target/production folder.
+    * Images - Images are copied to the target/production folder.
 
 ##Installation:
 ---
@@ -43,8 +44,11 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 
 ##Usage:
 ---
-**IMPORTANT:** New files and edits to existing files should take place only within the assets folder. Files in the dist directory are autmatically generated and will be overwritten when the production task is run. New and existing edits to the HTML files should be done in the html folder inside the assets directory.
+**IMPORTANT:** New files and edits to existing files should take place only within the assets folder. Files in the development and production folders are autmatically generated and will be overwritten when the gulp tasks are run. New HTML files and edits to existing HTML files should be done in the html folder inside the assets directory.
 
-1. From the command line, type in `gulp dev` to fire up the Gulp instance. If you get an error, you may need to install Gulp globally. To do this type `npm install gulp -g` into the command line. When this completes, try tying in `gulp dev` into the command line once again.
-2. This process should open up a new browser window with your site in it. In the console, you will see both a local and an external URL that your site is available for viewing from.
+There are four tasks that can be run. Two are for development purposes and the other two are for production. The `devBuild` task will run the development processes listed in the product capabilities section above, but will not watch for changes. The `devServe` task will run the `devBuild` task and will continue to watch for changes and refresh the browser accordingly. The two production tasks `prodBuild` and `prodServe` work in the same way, but are for production purposes.
+
+###Local Development Instructions:
+1. From the command line, type in `gulp devServe` to fire up the Gulp instance. If you get an error, you may need to install Gulp globally. To do this type `npm install gulp -g` into the command line. When this completes, try tying in `gulp devServe` into the command line once again.
+2. This process should create a target/development folder open up a new browser window with your site in it. In the console, you will see both a local and an external URL that your site is available for viewing from.
 3. All file edits you make are automatically reflected in any of the browsers that have your project open.

@@ -19,8 +19,8 @@ var gulp        = require('gulp'),
     gulpif      = require('gulp-if');
 
 //** Path Variables **//
-var rootPath    = 'dev/';
-var distPath    = 'dist/';
+var rootPath    = 'target/development/';
+var distPath    = 'target/production/';
 var incSource   = 'assets/html/**/*.inc';
 var htmlSource  = 'assets/html/**/*.html';
 var sassSource  = 'assets/sass/**/*.scss';
@@ -138,7 +138,7 @@ gulp.task('server:prod', function() {
 gulp.task('preProd', ['copyHtml', 'useMin', 'copyImages']);
 
 //Make sure the clean task, devBuild, and preProd tasks fire in the correct order
-gulp.task('prod', function(){
+gulp.task('prodBuild', function(){
     runSequence('clean:dist', 'devBuild', 'preProd');
 });
 

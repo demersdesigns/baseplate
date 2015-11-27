@@ -11,16 +11,12 @@ var gulp        = require('gulp'),
     usemin      =  require('gulp-usemin'),
 		imagemin    = require('gulp-imagemin'),
 		include     = require('gulp-include'),
-		notify      = require('gulp-notify'),
 		browserSync = require('browser-sync'),
 		reload      = browserSync.reload,
-    runSequence = require('run-sequence'),
-    argv        = require('yargs').argv,
-    gulpif      = require('gulp-if');
+    runSequence = require('run-sequence');
 
 //** Path Variables **//
-var rootPath    = 'target/development/';
-var distPath    = 'target/production/';
+var rootPath    = 'target/'
 var incSource   = 'assets/html/**/*.inc';
 var htmlSource  = 'assets/html/**/*.html';
 var sassSource  = 'assets/sass/**/*.scss';
@@ -34,8 +30,7 @@ gulp.task('htmlIncludes', function() {
   return gulp.src(htmlSource)
     .pipe(include())
     .pipe(gulp.dest(rootPath))
-    .pipe(reload({stream:true}))
-    .pipe(gulpif(argv.notify, notify({onLast: true, message: "HTML includes compiled!"})));
+    .pipe(reload({stream:true}));
 });
 
 //Process CSS
@@ -44,8 +39,7 @@ gulp.task('sass', function() {
     .pipe(sass({ outputStyle: 'expanded', errLogToConsole: true }))
     .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest(rootPath + 'css'))
-    .pipe(reload({stream:true}))
-    .pipe(gulpif(argv.notify, notify({onLast: true, message: 'SCSS compiled!'})));
+    .pipe(reload({stream:true}));
 });
 
 //Lint JavaScript
@@ -54,13 +48,12 @@ gulp.task('js', function() {
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(gulp.dest(rootPath + 'js'))
-    .pipe(reload({stream:true}))
-    .pipe(gulpif(argv.notify, notify({onLast: true, message: 'JS linted!'})));
+    .pipe(reload({stream:true}));
 });
 
-//Copy jQuery from assets/bower_components to dev
+//Copy jQuery from node_modules to dev
 gulp.task('copyJquery', function() {
-  return gulp.src('assets/bower_components/jquery/dist/jquery.min.js')
+  return gulp.src('node_modules/jquery/dist/jquery.min.js')
     .pipe(gulp.dest(rootPath + '/js'));
 });
 
@@ -69,12 +62,11 @@ gulp.task('img', function() {
   return gulp.src(imgSource)
     .pipe(imagemin())
     .pipe(gulp.dest(rootPath + 'img'))
-    .pipe(reload({stream:true}))
-    .pipe(gulpif(argv.notify, notify({onLast: true, message: 'Images crunched!'})));
+    .pipe(reload({stream:true}));
 });
 
-//Fire Up a Dev Server
-gulp.task('server:dev', function() {
+//Fire Up a Server
+gulp.task('server', function() {
     browserSync({
         server: {
             baseDir: rootPath
@@ -87,7 +79,7 @@ gulp.task('devBuild', ['htmlIncludes', 'sass', 'js', 'copyJquery', 'img']);
 
 //Run the devBuild task and then fire up a local server
 //Use the --notify flag to show messages on task completion
-gulp.task('devServe', ['devBuild', 'server:dev'], function() {
+gulp.task('devServe', ['devBuild', 'server'], function() {
   gulp.watch(htmlSource, ['htmlIncludes']);
   gulp.watch(incSource, ['htmlIncludes']);
   gulp.watch(sassSource, ['sass']);
@@ -96,17 +88,17 @@ gulp.task('devServe', ['devBuild', 'server:dev'], function() {
 });
 
 //** Build Task **//
-//Clear out the dist folder before doing a build
-gulp.task('clean:dist', function(cb) {
+//Clear out the target folder before doing a build
+gulp.task('clean:target', function(cb) {
   del([
-    'dist/*'
+    'target/*'
   ], cb);
 });
 
 //Copy HTML
 gulp.task('copyHtml', function() {
   return gulp.src(rootPath + '*.html')
-    .pipe(gulp.dest(distPath));
+    .pipe(gulp.dest(rootPath));
 });
 
 //Combine JS wrapped in usemin block
@@ -116,22 +108,20 @@ gulp.task('useMin', function() {
       js: [uglify()],
       css: [minifyCSS(), 'concat']
     }))
-    .pipe(gulp.dest(distPath));
+    .pipe(gulp.dest(rootPath));
+});
+
+//Clear out files that are combined by the useMin process
+gulp.task('cleanupUseMin', function(cb) {
+  del([
+    'target/js/**/*.js', '!target/js/scripts.js'
+  ], cb);
 });
 
 //Copy Images to Dist
 gulp.task('copyImages', function() {
  return gulp.src(rootPath + 'img/*')
-  .pipe(gulp.dest(distPath + 'img'));
-});
-
-//Fire Up a Prod Server
-gulp.task('server:prod', function() {
-    browserSync({
-        server: {
-            baseDir: distPath
-        }
-    });
+  .pipe(gulp.dest(rootPath + 'img'));
 });
 
 //Copy files from dev, combine scripts, combine css
@@ -139,10 +129,5 @@ gulp.task('preProd', ['copyHtml', 'useMin', 'copyImages']);
 
 //Make sure the clean task, devBuild, and preProd tasks fire in the correct order
 gulp.task('prodBuild', function(){
-    runSequence('clean:dist', 'devBuild', 'preProd');
-});
-
-//Run the prod tasks and then fire up a local server
-gulp.task('prodServe', function(){
-    runSequence('clean:dist', 'preProd', 'server:prod');
+    runSequence('clean:target', 'devBuild', 'preProd', 'cleanupUseMin');
 });

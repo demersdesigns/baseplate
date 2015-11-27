@@ -19,8 +19,7 @@ var gulp        = require('gulp'),
     gulpif      = require('gulp-if');
 
 //** Path Variables **//
-var rootPath    = 'target/development/';
-var distPath    = 'target/production/';
+var rootPath    = 'target/'
 var incSource   = 'assets/html/**/*.inc';
 var htmlSource  = 'assets/html/**/*.html';
 var sassSource  = 'assets/sass/**/*.scss';
@@ -73,8 +72,8 @@ gulp.task('img', function() {
     .pipe(gulpif(argv.notify, notify({onLast: true, message: 'Images crunched!'})));
 });
 
-//Fire Up a Dev Server
-gulp.task('server:dev', function() {
+//Fire Up a Server
+gulp.task('server', function() {
     browserSync({
         server: {
             baseDir: rootPath
@@ -87,7 +86,7 @@ gulp.task('devBuild', ['htmlIncludes', 'sass', 'js', 'copyJquery', 'img']);
 
 //Run the devBuild task and then fire up a local server
 //Use the --notify flag to show messages on task completion
-gulp.task('devServe', ['devBuild', 'server:dev'], function() {
+gulp.task('devServe', ['devBuild', 'server'], function() {
   gulp.watch(htmlSource, ['htmlIncludes']);
   gulp.watch(incSource, ['htmlIncludes']);
   gulp.watch(sassSource, ['sass']);
@@ -106,7 +105,7 @@ gulp.task('clean:dist', function(cb) {
 //Copy HTML
 gulp.task('copyHtml', function() {
   return gulp.src(rootPath + '*.html')
-    .pipe(gulp.dest(distPath));
+    .pipe(gulp.dest(rootPath));
 });
 
 //Combine JS wrapped in usemin block
@@ -116,22 +115,20 @@ gulp.task('useMin', function() {
       js: [uglify()],
       css: [minifyCSS(), 'concat']
     }))
-    .pipe(gulp.dest(distPath));
+    .pipe(gulp.dest(rootPath));
+});
+
+//Clear out files that are combined by the useMin process
+gulp.task('cleanupUseMin', function(cb) {
+  del([
+    'target/js/**/*.js', '!target/js/scripts.js'
+  ], cb);
 });
 
 //Copy Images to Dist
 gulp.task('copyImages', function() {
  return gulp.src(rootPath + 'img/*')
-  .pipe(gulp.dest(distPath + 'img'));
-});
-
-//Fire Up a Prod Server
-gulp.task('server:prod', function() {
-    browserSync({
-        server: {
-            baseDir: distPath
-        }
-    });
+  .pipe(gulp.dest(rootPath + 'img'));
 });
 
 //Copy files from dev, combine scripts, combine css
@@ -139,10 +136,5 @@ gulp.task('preProd', ['copyHtml', 'useMin', 'copyImages']);
 
 //Make sure the clean task, devBuild, and preProd tasks fire in the correct order
 gulp.task('prodBuild', function(){
-    runSequence('clean:dist', 'devBuild', 'preProd');
-});
-
-//Run the prod tasks and then fire up a local server
-gulp.task('prodServe', function(){
-    runSequence('clean:dist', 'preProd', 'server:prod');
+    runSequence('clean:dist', 'devBuild', 'preProd', 'cleanupUseMin');
 });

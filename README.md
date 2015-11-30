@@ -39,8 +39,7 @@ $ npm install -g gulp
 Now grab a copy of Baseplate and set it up.
 
 ```
-$ git clone
-$ git@github.com:demersdesigns/baseplate.git
+$ git clone git@github.com:demersdesigns/baseplate.git
 $ cd baseplate
 $ npm install // install additional dependencies
 ```

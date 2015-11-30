@@ -19,4 +19,4 @@
             console[method] = noop;
         }
     }
-}());
+})();

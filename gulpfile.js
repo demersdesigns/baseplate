@@ -24,8 +24,7 @@ var jsSource    = 'assets/js/**/*.js';
 var imgSource   = 'assets/img/**/*';
 
 //** Dev Task **//
-
-//Process HTML Includes
+//Process HTML includes
 gulp.task('htmlIncludes', function() {
   return gulp.src(htmlSource)
     .pipe(include())
@@ -42,7 +41,7 @@ gulp.task('sass', function() {
     .pipe(reload({stream:true}));
 });
 
-//Lint JavaScript
+//Lint JS
 gulp.task('js', function() {
   return gulp.src(jsSource)
     .pipe(jshint())
@@ -57,7 +56,7 @@ gulp.task('copyJquery', function() {
     .pipe(gulp.dest(rootPath + '/js'));
 });
 
-//Process Images
+//Process images
 gulp.task('img', function() {
   return gulp.src(imgSource)
     .pipe(imagemin())
@@ -65,7 +64,7 @@ gulp.task('img', function() {
     .pipe(reload({stream:true}));
 });
 
-//Fire Up a Server
+//Fire up a server
 gulp.task('server', function() {
     browserSync({
         server: {
@@ -74,12 +73,11 @@ gulp.task('server', function() {
     });
 });
 
-//Task That Runs the Processes Listed Above - Use this task for deployment to dev env
+//Task That Runs the Processes Listed Above
 gulp.task('devBuild', ['htmlIncludes', 'sass', 'js', 'copyJquery', 'img']);
 
 //Run the devBuild task and then fire up a local server
-//Use the --notify flag to show messages on task completion
-gulp.task('devServe', ['devBuild', 'server'], function() {
+gulp.task('dev', ['devBuild', 'server'], function() {
   gulp.watch(htmlSource, ['htmlIncludes']);
   gulp.watch(incSource, ['htmlIncludes']);
   gulp.watch(sassSource, ['sass']);
@@ -89,16 +87,12 @@ gulp.task('devServe', ['devBuild', 'server'], function() {
 
 //** Build Task **//
 //Clear out the target folder before doing a build
+//Keep the images, since they have already been optimized.
+//Keep the html files since the usemin task makes sure the paths are correct.
 gulp.task('clean:target', function(cb) {
   del([
-    'target/*'
+    'target/*', '!target/img', '!target/*.html'
   ], cb);
-});
-
-//Copy HTML
-gulp.task('copyHtml', function() {
-  return gulp.src(rootPath + '*.html')
-    .pipe(gulp.dest(rootPath));
 });
 
 //Combine JS wrapped in usemin block
@@ -111,23 +105,15 @@ gulp.task('useMin', function() {
     .pipe(gulp.dest(rootPath));
 });
 
-//Clear out files that are combined by the useMin process
+//Clear out JS files that are combined by the useMin process
+//When the usemin task runs, we need to remove the leftover files that remain.
 gulp.task('cleanupUseMin', function(cb) {
   del([
     'target/js/**/*.js', '!target/js/scripts.js'
   ], cb);
 });
 
-//Copy Images to Dist
-gulp.task('copyImages', function() {
- return gulp.src(rootPath + 'img/*')
-  .pipe(gulp.dest(rootPath + 'img'));
-});
-
-//Copy files from dev, combine scripts, combine css
-gulp.task('preProd', ['copyHtml', 'useMin', 'copyImages']);
-
-//Make sure the clean task, devBuild, and preProd tasks fire in the correct order
-gulp.task('prodBuild', function(){
-    runSequence('clean:target', 'devBuild', 'preProd', 'cleanupUseMin');
+//Make sure the clean task and dev tasks fire in the correct order
+gulp.task('prod', function(){
+    runSequence('clean:target', 'devBuild', 'useMin', 'cleanupUseMin');
 });

@@ -16,7 +16,7 @@ var gulp        = require('gulp'),
     runSequence = require('run-sequence');
 
 //** Path Variables **//
-var rootPath    = 'target/'
+var rootPath    = 'target/';
 var incSource   = 'assets/html/**/*.inc';
 var htmlSource  = 'assets/html/**/*.html';
 var sassSource  = 'assets/sass/**/*.scss';

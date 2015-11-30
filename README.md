@@ -44,13 +44,13 @@ b. Use homebrew to install Node, which includes NPM `$ brew install node`
 ---
 **IMPORTANT:** New files and edits to existing files should take place only within the assets folder. Files in the development and production folders are autmatically generated and will be overwritten when the gulp tasks are run. New HTML files and edits to existing HTML files should be done in the html folder inside the assets directory.
 
-There are three tasks that can be run. Two are for development purposes and the other is for production. The `devBuild` task will run the development processes listed in the product capabilities section above, but will not watch for changes. The `devServe` task will run the `devBuild` task and will continue to watch for changes and refresh the browser accordingly. The production tasks `prodBuild` cleans the target folder, runs the `devBuild` tasks and then runs a few other tasks to get the code production ready including minification and concatenation. This process attempts to get your code to a place where you can then layer in any CI and deployment tasks that you may need on a per-project basis. 
+There are two tasks that can be run. One is for local development purposes and the other is for production. The `dev` task will run the development processes listed in the product capabilities section above and will continue to watch for changes and refresh the browser accordingly. The `prod` task cleans the target folder, runs the `dev` tasks and then runs a few other tasks to get the code production-ready including minification and concatenation. This process attempts to get your code to a place where you can then layer in any CI and deployment tasks that you may need on a per-project basis. 
 
 ###Local Development Instructions:
-1. From the command line, type in `gulp devServe` to fire up the Gulp instance.
+1. From the command line, type in `gulp dev` to fire up the Gulp instance.
 2. This process should create a target folder with the development files for your project and open up a new browser window with your project in it. In the console, you will see both a local and an external URL that your site is available for viewing from.
 3. All file edits you make are automatically reflected in any of the browsers that have your project open.
 
 ###Production Build Instructions:
-1. When you are ready to create project files that are ready for a production environment, run the `prodBuild` task. This will complete all tasks listed above in the usage section.
+1. When you are ready to create project files that are ready for a production environment, run the `prod` task. This will complete all tasks listed above in the usage section.
 2. Once this process completes, the target folder will contain production-ready files.

@@ -25,7 +25,5 @@
     "normalize.css": "^3.0.3",
     "run-sequence": "^1.0.2"
   },
-  "scripts": {
-    "installer": "npm install;"
-  }
+  "scripts": {}
 }

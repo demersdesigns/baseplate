@@ -13,7 +13,9 @@ var gulp        = require('gulp'),
 		include     = require('gulp-include'),
 		browserSync = require('browser-sync'),
 		reload      = browserSync.reload,
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+    exec        = require('child_process').exec,
+    kss         = require('kss');
 
 //** Path Variables **//
 var rootPath    = 'target/';
@@ -22,6 +24,11 @@ var htmlSource  = 'assets/html/**/*.html';
 var sassSource  = 'assets/sass/**/*.scss';
 var jsSource    = 'assets/js/**/*.js';
 var imgSource   = 'assets/img/**/*';
+var sassPath    = 'assets/sass/**/*';
+var kssNode     = 'node ' + __dirname + '/node_modules/kss/bin/kss-node ';
+var flags = {
+  styleguide: false
+}
 
 //** Dev Task **//
 //Process HTML includes
@@ -39,6 +46,28 @@ gulp.task('sass', function() {
     .pipe(autoprefix('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest(rootPath + 'css'))
     .pipe(reload({stream:true}));
+});
+
+//running this task sets a flag to true and allows
+//the options generation of the styleguide
+//this task should be run before the dev task
+//example: gulp styleguide dev
+gulp.task('styleguide', function() {
+  flags.styleguide = true;
+});
+
+//if the styleguide flag is true, generate styleguide
+gulp.task('styleguide:generate', function(cb) {
+  var cmd;
+
+  if(flags.styleguide === true) {
+    cmd = exec(kssNode + 'assets/sass target/styleguide --css ../css/style.css', function(err, stdout, stderr) {
+        reload();
+      }
+    );
+  }
+
+  return cmd.on('close', cb);
 });
 
 //Lint JS
@@ -74,7 +103,7 @@ gulp.task('server', function() {
 });
 
 //Task That Runs the Processes Listed Above
-gulp.task('devBuild', ['htmlIncludes', 'sass', 'js', 'copyJquery', 'img']);
+gulp.task('devBuild', ['htmlIncludes', 'sass', 'styleguide:generate', 'js', 'copyJquery', 'img']);
 
 //Run the devBuild task and then fire up a local server
 gulp.task('dev', ['devBuild', 'server'], function() {
@@ -83,6 +112,7 @@ gulp.task('dev', ['devBuild', 'server'], function() {
   gulp.watch(sassSource, ['sass']);
   gulp.watch(jsSource, ['js']);
   gulp.watch(imgSource, ['img']);
+  gulp.watch(sassPath, ['styleguide:generate'])
 });
 
 //** Build Task **//

@@ -5,6 +5,9 @@
 @import "../../node_modules/bourbon-neat/app/assets/stylesheets/_neat";
 @import "partials/custom_fonts";
 
+//This is an example file to show the styleguide functionality
+@import "buttons/buttons";
+
 body{
 	background: whitesmoke;
 }

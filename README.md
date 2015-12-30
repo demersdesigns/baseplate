@@ -1,4 +1,5 @@
 ![alt-text](https://dl.dropbox.com/s/6n3pxjt5s82bapy/baseplate-logo.png?dl=1 "Baseplate Logo")
+<img src="https://dl.dropbox.com/s/6n3pxjt5s82bapy/baseplate-logo.png?dl=1" alt="Baseplate Logo" style="width: 150px; height: 150px;" />
 # baseplate
 ---
 A sensible baseline for simple web projects using [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate), [SASS](http://sass-lang.com/), [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/), and [Gulp](http://gulpjs.com/).

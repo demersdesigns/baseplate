@@ -2,7 +2,16 @@
   "name": "baseplate",
   "version": "0.1.0",
   "author": "@demersdesigns",
-  "private": true,
+  "description": "A sensible living styleguide solution built on kss and gulp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/demersdesigns/baseplate.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/demersdesigns/baseplate/issues"
+  },
+  "homepage": "https://github.com/demersdesigns/baseplate",
   "dependencies": {
     "bourbon": "^4.2.6",
     "bourbon-neat": "^1.7.2",
@@ -22,9 +31,14 @@
     "gulp-usemin": "^0.3.11",
     "jquery": "^2.1.4",
     "jshint-stylish": "^1.0.1",
-    "kss": "^2.3.1",
     "normalize.css": "^3.0.3",
     "run-sequence": "^1.0.2"
   },
-  "scripts": {}
+  "devDependencies": {
+    "@demersdesigns/styleplate": "0.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
+

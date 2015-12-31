@@ -26,7 +26,7 @@ A sensible baseline for simple web projects using [HTML5 Boilerplate](https://gi
     * Images - Images are copied to the target folder.
 
 ### Getting Started
-You'll need Node.js, `npm` and `gulp` to work with Baseplate. If you don't already have Node.s installed, I recommend you install it via [Node Version Manager](https://github.com/creationix/nvm). Even better, install [brew](http://brew.sh) and use _that_ to install NVM!
+You'll need Node.js, `npm` and `gulp` to work with Baseplate. If you don't already have Node.js installed, I recommend you install it via [Node Version Manager](https://github.com/creationix/nvm). Even better, install [brew](http://brew.sh) and use _that_ to install NVM!
 
 NVM will also install `npm` for you.
 
@@ -65,3 +65,6 @@ All file edits you make are automatically reflected in any of the browsers that 
 ### Production Build Instructions:
 1. When you are ready to create project files that are ready for a production environment, run the `prod` task. This will complete all tasks listed above in the usage section.
 2. Once this process completes, the target folder will contain production-ready files.
+
+## Living Styleguide
+There is a companion project to baseplate called styleplate that allows you to create a living styleguide to document the various styles you are using in your project. To learn how to get styleplate working with baseplate, [check out the project's readme](https://github.com/demersdesigns/styleplate).

@@ -58,16 +58,14 @@ gulp.task('styleguide', function() {
 
 //if the styleguide flag is true, generate styleguide
 gulp.task('styleguide:generate', function(cb) {
-  var cmd;
-
   if(flags.styleguide === true) {
-    cmd = exec(kssNode + 'assets/sass target/styleguide --css ../css/style.css', function(err, stdout, stderr) {
+    var cmd = exec(kssNode + 'assets/sass target/styleguide --css ../css/style.css', function(err, stdout, stderr) {
         reload();
       }
     );
-  }
 
-  return cmd.on('close', cb);
+    return cmd.on('close', cb);
+  }
 });
 
 //Lint JS

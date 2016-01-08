@@ -32,10 +32,10 @@
     "jquery": "^2.1.4",
     "jshint-stylish": "^1.0.1",
     "normalize.css": "^3.0.3",
-    "run-sequence": "^1.0.2"
+    "run-sequence": "^1.0.2",
+    "yargs": "^3.31.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
-

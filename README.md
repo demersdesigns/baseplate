@@ -67,4 +67,4 @@ All file edits you make are automatically reflected in any of the browsers that 
 2. Once this process completes, the target folder will contain production-ready files.
 
 ## Living Styleguide
-There is a companion project to baseplate called styleplate that allows you to create a living styleguide to document the various styles you are using in your project. To learn how to get styleplate working with baseplate, [check out the project's readme](https://github.com/demersdesigns/styleplate).
+There is an optional companion project to baseplate called [styleplate](https://github.com/demersdesigns/styleplate) that uses the [kss-node](https://github.com/kss-node/kss-node/wiki/Quick-Start-Guide) living styleguide to document the various styles you are using in your project. To get [styleplate](https://github.com/demersdesigns/styleplate) working with baseplate, check out the project's readme. Once the project is set up, you will need to add the `--styleguide` to the end of the `gulp dev` command to trigger updates to baseplate when the styleplate `scss` files are updated.

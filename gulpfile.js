@@ -1,19 +1,20 @@
 //** NPM Dependencies **//
 var gulp        = require('gulp'),
     del         = require('del'),
-		sass        = require('gulp-sass'),
-		autoprefix  = require('gulp-autoprefixer'),
-		minifyCSS   = require('gulp-minify-css'),
-		stylish     = require('jshint-stylish'),
-		jshint      = require('gulp-jshint'),
-		uglify      = require('gulp-uglify'),
-		concat      = require('gulp-concat'),
+    sass        = require('gulp-sass'),
+    autoprefix  = require('gulp-autoprefixer'),
+    minifyCSS   = require('gulp-minify-css'),
+    stylish     = require('jshint-stylish'),
+    jshint      = require('gulp-jshint'),
+    uglify      = require('gulp-uglify'),
+    concat      = require('gulp-concat'),
     usemin      =  require('gulp-usemin'),
-		imagemin    = require('gulp-imagemin'),
-		include     = require('gulp-include'),
-		browserSync = require('browser-sync'),
-		reload      = browserSync.reload,
-    runSequence = require('run-sequence');
+    imagemin    = require('gulp-imagemin'),
+    include     = require('gulp-include'),
+    browserSync = require('browser-sync'),
+    reload      = browserSync.reload,
+    runSequence = require('run-sequence'),
+    yargs       = require('yargs').argv;
 
 //** Path Variables **//
 var rootPath    = 'target/';
@@ -22,6 +23,9 @@ var htmlSource  = 'assets/html/**/*.html';
 var sassSource  = 'assets/sass/**/*.scss';
 var jsSource    = 'assets/js/**/*.js';
 var imgSource   = 'assets/img/**/*';
+if(yargs.styleguide) {
+    var styleguideSrc = '../styleplate/sass/**/*.scss';
+}
 
 //** Dev Task **//
 //Process HTML includes
@@ -83,6 +87,9 @@ gulp.task('dev', ['devBuild', 'server'], function() {
   gulp.watch(sassSource, ['sass']);
   gulp.watch(jsSource, ['js']);
   gulp.watch(imgSource, ['img']);
+  if(styleguideSrc) {
+    gulp.watch(styleguideSrc, ['sass']);
+  }
 });
 
 //** Build Task **//

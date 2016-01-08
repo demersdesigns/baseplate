@@ -2,7 +2,7 @@
   "name": "baseplate",
   "version": "0.1.0",
   "author": "@demersdesigns",
-  "description": "A sensible living styleguide solution built on kss and gulp",
+  "description": "A sensible baseline for simple web projects using HTML5 Boilerplate, SASS, Bourbon, Neat, and Gulp.",
   "repository": {
     "type": "git",
     "url": "https://github.com/demersdesigns/baseplate.git"

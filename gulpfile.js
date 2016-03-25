@@ -1,6 +1,7 @@
 //** NPM Dependencies **//
 var gulp        = require('gulp'),
     del         = require('del'),
+    include     = require('gulp-file-include'),
     sass        = require('gulp-sass'),
     autoprefix  = require('gulp-autoprefixer'),
     minifyCSS   = require('gulp-minify-css'),
@@ -8,12 +9,14 @@ var gulp        = require('gulp'),
     jshint      = require('gulp-jshint'),
     uglify      = require('gulp-uglify'),
     concat      = require('gulp-concat'),
+    sourcemaps  = require('gulp-sourcemaps'),
     usemin      =  require('gulp-usemin'),
     imagemin    = require('gulp-imagemin'),
-    include     = require('gulp-include'),
+    htmlmin = require('gulp-htmlmin'),
+    runSequence = require('run-sequence'),
+    plumber     = require('gulp-plumber'),
     browserSync = require('browser-sync'),
     reload      = browserSync.reload,
-    runSequence = require('run-sequence'),
     yargs       = require('yargs').argv;
 
 //** Path Variables **//
@@ -27,9 +30,10 @@ var rootPath    = 'app/',
     imagesSource = 'app/images/**/*',
     tmpImagesSource = '.tmp/images/**/*',
     fontsSource = 'app/fonts/**/*';
-if(yargs.styleguide) {
-    var styleguideSrc = '../styleplate/sass/**/*.scss';
-}
+//TODO: Document that this needs to be added if integrating styleplate
+//if(yargs.styleguide) {
+//    var styleguideSrc = '../styleplate/sass/**/*.scss';
+//}
 
 //** Dev Task **//
 //Process HTML includes

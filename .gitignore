@@ -5,3 +5,4 @@ npm-debug.log
 /assets/css
 /assets/index.html
 /.idea
+app/js/jquery.min.js

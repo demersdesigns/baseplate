@@ -17,12 +17,16 @@ var gulp        = require('gulp'),
     yargs       = require('yargs').argv;
 
 //** Path Variables **//
-var rootPath    = 'target/';
-var incSource   = 'assets/html/**/*.inc';
-var htmlSource  = 'assets/html/**/*.html';
-var sassSource  = 'assets/sass/**/*.scss';
-var jsSource    = 'assets/js/**/*.js';
-var imgSource   = 'assets/img/**/*';
+var rootPath    = 'app/',
+    tmpPath = '.tmp/',
+    distPath = 'public/',
+    htmlSource = 'app/html/*.html',
+    htmlIncludesSource = 'app/html/**/*.html',
+    stylesSource = 'app/styles/**/*.scss',
+    scriptsSource = 'app/scripts/**/*.js',
+    imagesSource = 'app/images/**/*',
+    tmpImagesSource = '.tmp/images/**/*',
+    fontsSource = 'app/fonts/**/*';
 if(yargs.styleguide) {
     var styleguideSrc = '../styleplate/sass/**/*.scss';
 }

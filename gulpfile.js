@@ -72,7 +72,7 @@ gulp.task('jshint', function () {
     return gulp.src([scriptsSource, '!app/scripts/vendor/**/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
-        .pipe(gulp.dest(rootPath + 'scripts'))
+        .pipe(gulp.dest(tmpPath + 'scripts'))
         .pipe(browserSync.stream({ match: '**/*.js' }));
 });
 

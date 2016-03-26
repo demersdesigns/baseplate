@@ -64,7 +64,7 @@ gulp.task('styles', function () {
 //Copy jQuery from node_modules to dev
 gulp.task('copyJquery', function() {
     return gulp.src('node_modules/jquery/dist/jquery.min.js')
-        .pipe(gulp.dest(rootPath + '/scripts/vendor'));
+        .pipe(gulp.dest(tmpPath + '/scripts/vendor'));
 });
 
 //Lint scripts

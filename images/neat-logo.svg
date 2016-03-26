@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="255px" height="256px" viewBox="0 0 255 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>neat-logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="neat-logo" transform="translate(2.000000, 3.000000)">
+            <circle id="Oval-2-Copy-2" stroke="#979797" stroke-width="5" cx="125.5" cy="125" r="125"></circle>
+            <g id="Group-3" transform="translate(53.500000, 60.000000)">
+                <path d="M143.257605,117.837067 C143.257605,123.446803 139.440661,128.908916 133.134407,128.908916 L12.817704,128.908916 C6.51144921,128.908916 0.371148517,123.446803 0.371148517,117.837067 L0.371148517,0.475466419" id="Shape" fill="#53AEE0"></path>
+                <path d="M0.53710259,118.870439 C0.53710259,124.480176 4.35404626,129.942288 10.660301,129.942288 L130.977004,129.942288 C137.283258,129.942288 143.423559,124.480176 143.423559,118.870439 L143.423559,1.36121435" id="Shape" fill="#3D81A6"></path>
+                <path d="M143.257605,2.39458693 L143.257605,119.756187 L71.8973539,59.3777035" id="Shape" fill="#2B5B75"></path>
+            </g>
+        </g>
+    </g>
+</svg>

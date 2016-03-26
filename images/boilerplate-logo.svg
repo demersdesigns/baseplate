@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>boilerplate-logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="boilerplate-logo" transform="translate(3.000000, 3.000000)">
+            <circle id="Oval-2" stroke="#979797" stroke-width="5" cx="125" cy="125" r="125"></circle>
+            <g id="Group-2" transform="translate(32.000000, 42.000000)">
+                <path d="M80.5117761,0.878947368 L60.5510765,58.0400055 L0,58.2077795 L49.0725427,94.537654 L31.4383282,153.195075 L81.0096621,118.035084 L131.916235,155.362534 L113.281723,94.3698799 L161.857285,58.0400055 L101.472774,58.2077795 L80.5117761,0.878947368" id="Shape" fill="#E08524"></path>
+                <path d="M83.3490566,7.10542736e-15 L103.477227,9.49918298 L120.278161,55.4964679 L103.64334,55.4964679 L83.3490566,0.00408098939" id="Shape" fill="#466770"></path>
+                <path d="M117.566038,95.5913459 L137.444812,105.372117 L185.554172,70.3740056 L165.675397,59.7684211 L117.566038,95.5913459" id="Shape" fill="#304A51"></path>
+                <path d="M117.566038,95.8052632 L137.47197,105.578779 L156.292058,166.544226 L135.707643,156.056537 L117.566038,95.8075304" id="Shape" fill="#466770"></path>
+                <path d="M34.2178864,155.669992 L80.9603229,122.173684 L97.3457489,134.339114 L53.180551,165.336042 L34.2169811,155.670445" id="Shape" fill="#304A51"></path>
+            </g>
+        </g>
+    </g>
+</svg>

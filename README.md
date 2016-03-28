@@ -1,29 +1,32 @@
 <img src="https://dl.dropbox.com/s/6n3pxjt5s82bapy/baseplate-logo.png?dl=1" alt="Baseplate Logo" align="center" width="200" />
-# baseplate
----
+
 A sensible baseline for simple web projects using [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate), [SASS](http://sass-lang.com/), [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/), and [Gulp](http://gulpjs.com/).
 
-## Requirements:
+## Assumptions:
 ---
-* [Homebrew](http://brew.sh/)
-* [Node.js](http://nodejs.org) & [NPM](https://www.npmjs.org/)
+This project makes the following assumptions:
+
+* You have Node and NPM installed. If you don't, you can install Node, which includes NPM by [downloading it here](https://nodejs.org/en/ title="Download Node and NPM").
+* You have Gulp installed globally. If you don't, you can install it using NPM by typing `npm install -g gulp` in a terminal window.
 
 ## Project Capabilities:
 ---
-* Baseplate utilizes [BrowserSync](http://www.browsersync.io/) to allow for live reloading of files on multiple devices
-* Baseplate includes both development and production tasks.
-* The development tasks include:
-    * JS - Javascript is run through JSHint and any errors are returned to the console. The files are then copied to the development folder. A copy of the minified jQuery file from the node_modules folder is copied to the target folder.
-    * SASS - SCSS files are compiled into CSS and copied into the target folder
-    * Images - Images are optimized and copied to the target folder.
-    * Includes - Includes are compiled to saved as HTML files in the target folder.
-    * Any updates to files in the assets folder will trigger a reload of the browser.
-    * Errors in JS and CSS will output to the command line.
-* The production tasks include:
-    * JS - JavaScript files included in the usemin blocks are concatenated, uglified, and copied to the target folder.
-    * CSS - CSS files are minified, concatenated, and copied to the target folder.
-    * HTML - HTML files are copied to the target folder.
-    * Images - Images are copied to the target folder.
+Baseplate includes tasks for local development as well as readying your code for production.
+
+### Local Development Features:
+* HTML includes
+* Sass compilation and sourcemapping
+* Bourbon from Thoughtbot
+* Neat grid framework from Thoughtbot
+* JavaScript linting with JSHint
+* jQuery latest via NPM
+* Live reloading and local server via Browsersync
+
+### Production Features:
+* HTML minification
+* Script concatenation, uglifying, and sourcemapping
+* CSS minification and concatenation
+* Image optimization
 
 ### Getting Started
 You'll need Node.js, `npm` and `gulp` to work with Baseplate. If you don't already have Node.js installed, I recommend you install it via [Node Version Manager](https://github.com/creationix/nvm). Even better, install [brew](http://brew.sh) and use _that_ to install NVM!
@@ -48,9 +51,9 @@ Now you're ready to get going.
 
 ## Usage:
 ---
-**IMPORTANT:** New files and edits to existing files should take place only within the assets folder. Files in the development and production folders are autmatically generated and will be overwritten when the gulp tasks are run. New HTML files and edits to existing HTML files should be done in the html folder inside the assets directory.
+**IMPORTANT:** New files and edits to existing files should take place only within the app folder. Files in the .tmp and public folders are autmatically generated and will be overwritten when the gulp tasks are run.
 
-There are two tasks that can be run. One is for local development purposes and the other is for production. The `dev` task will run the development processes listed in the product capabilities section above and will continue to watch for changes and refresh the browser accordingly. The `prod` task cleans the target folder, runs the `dev` tasks and then runs a few other tasks to get the code production-ready including minification and concatenation. This process attempts to get your code to a place where you can then layer in any CI and deployment tasks that you may need on a per-project basis.
+There are two tasks that can be run. One is for local development purposes and the other is for production. The `gulp dev` task will run the development processes listed in the product capabilities section above and will continue to watch for changes and refresh the browser accordingly. The `gulp prod` task creates a public folder or cleans the existing public folder, runs the `gup dev` tasks and then runs a few other tasks to get the code production-ready including minification and concatenation. This process attempts to get your code to a place where you can then layer in any CI and deployment tasks that you may need on a per-project basis.
 
 ### Local Development Instructions:
 
@@ -58,13 +61,10 @@ There are two tasks that can be run. One is for local development purposes and t
 $ gulp dev
 ```
 
-This process should create a target folder with the development files for your project and open up a new browser window with your project in it. In the console, you will see both a local and an external URL that your site is available for viewing from.
+This process will process the files in your app folder and will also create a .tmp folder. It will then open up a new browser window with your project in it. In the console, you will see both a local and an external URL that your site is available for viewing from.
 
 All file edits you make are automatically reflected in any of the browsers that have your project open.
 
 ### Production Build Instructions:
-1. When you are ready to create project files that are ready for a production environment, run the `prod` task. This will complete all tasks listed above in the usage section.
-2. Once this process completes, the target folder will contain production-ready files.
-
-## Living Styleguide
-There is an optional companion project to baseplate called [styleplate](https://github.com/demersdesigns/styleplate) that uses the [kss-node](https://github.com/kss-node/kss-node/wiki/Quick-Start-Guide) living styleguide to document the various styles you are using in your project. To get [styleplate](https://github.com/demersdesigns/styleplate) working with baseplate, check out the project's readme. Once the project is set up, you will need to add the `--styleguide` to the end of the `gulp dev` command to trigger updates to baseplate when the styleplate `scss` files are updated.
+1. When you are ready to create project files that are ready for a production environment, run the `gulp prod` task.
+2. Once this process completes, the public folder will contain production-ready files.

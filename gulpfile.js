@@ -30,10 +30,6 @@ var rootPath    = 'app/',
     imagesSource = 'app/images/**/*',
     tmpImagesSource = '.tmp/images/**/*',
     fontsSource = 'app/fonts/**/*';
-//TODO: Document that this needs to be added if integrating styleplate
-//if(yargs.styleguide) {
-//    var styleguideSrc = '../styleplate/styles/**/*.scss';
-//}
 
 //** Dev Task **//
 //Compile HTML includes and copy to tmp folder

@@ -15,9 +15,10 @@ Baseplate includes tasks for local development as well as readying your code for
 
 ### Local Development Features:
 * HTML includes
+* [normalize.css](https://necolas.github.io/normalize.css/) for consistent rendering
 * Sass compilation and sourcemapping
-* Bourbon from Thoughtbot
-* Neat grid framework from Thoughtbot
+* [Bourbon](http://bourbon.io/) Sass mixin library
+* [Neat](http://neat.bourbon.io/) semantic and simple grid framework
 * JavaScript linting with JSHint
 * jQuery latest via NPM
 * Live reloading and local server via Browsersync

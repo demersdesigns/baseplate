@@ -1,3 +1,0 @@
-#/bin/bash
-wget -N https://github.com/demersdesigns/baseplate/raw/master/gulpfile.js
-wget -N https://github.com/demersdesigns/baseplate/raw/master/package.json

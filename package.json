@@ -1,6 +1,6 @@
 {
   "name": "baseplate",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "@demersdesigns",
   "description": "A sensible baseline for simple web projects using HTML5 Boilerplate, SASS, Bourbon, Neat, and Gulp.",
   "repository": {

@@ -1,8 +1,7 @@
 @import "partials/vars";
-@import "../../node_modules/normalize.css/normalize";
 @import "partials/html5bp";
 @import "../../node_modules/bourbon/app/assets/stylesheets/_bourbon";
-@import "../../node_modules/bourbon-neat/app/assets/stylesheets/_neat";
+@import "../../node_modules/bourbon-neat/core/_neat";
 @import "partials/custom_fonts";
 
 body {

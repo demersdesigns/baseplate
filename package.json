@@ -1,16 +1,11 @@
 {
   "name": "baseplate",
   "version": "1.0.0",
-  "author": "@demersdesigns",
+  "author": "demersdesigns",
   "description": "A sensible baseline for simple web projects using HTML5 Boilerplate, SASS, Bourbon, Neat, and Gulp.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/demersdesigns/baseplate.git"
-  },
+  "repository": "demersdesigns/baseplate",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/demersdesigns/baseplate/issues"
-  },
+  "bugs": "https://github.com/demersdesigns/baseplate/issues",
   "homepage": "https://demersdesigns.github.io/baseplate",
   "dependencies": {
     "bourbon": "^4.2.6",
